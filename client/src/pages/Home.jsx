@@ -1,11 +1,13 @@
-import React from 'react'
-
+import React from "react";
+import { useSelector } from "react-redux";
 const Home = () => {
-  return (
-    <h1 className='text-red-700'>
-        Home file
-    </h1>
-  )
-}
+  const { email,_id } = useSelector((state) => state.user.currentUser);
+  return (  
+    <div>
+      <h1 className="text-red-700">{_id}</h1>
+  
+    </div>
+  );
+};
 
-export default Home
+export default Home;
