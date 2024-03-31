@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signin = () => {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const navigation = useNavigate();
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -29,7 +30,7 @@ const Signin = () => {
         setError(true);
         return;
       }
-      setError(false);
+      navigation("/")
     } catch (error) {
       setLoading(false);
       setError(true);
