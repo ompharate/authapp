@@ -55,3 +55,53 @@ export const signin = async (req, res, next) => {
       user,
     });
 };
+
+export const googleLoginHandler = async (req, res, next) => {
+  console.log(req.body);
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      console.log("ok in if")
+      const token = getToken(user);
+      const { password: hashedPassword, ...rest } = user._doc;
+      const expiryDate = new Date(Date.now() + 3600000);
+      return res
+      .cookie("access_token", token, { httpOnly: true, expires: expiryDate })
+      .status(200)
+      .json({
+        success: true,
+        message: "user found",
+        user,
+      });
+
+
+    } else {
+      console.log("ok in else");
+      const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+
+      const newUser = await User.create({
+        username: req.body.name.split(' ').join("").toLowerCase(),
+        email: req.body.email,
+        profilePhoto: req.body.photo,
+        password: hashedPassword,
+      });
+
+      const token = getToken(newUser);
+      const expiryDate = new Date(Date.now() + 3600000); // 1 hour
+      return res
+        .cookie("access_token", token, { httpOnly: true, expires: expiryDate })
+        .status(200)
+        .json({
+          success: true,
+          message: "user found",
+          newUser,
+        });
+
+    }
+  } catch (error) {
+    next(error);
+  }
+};
