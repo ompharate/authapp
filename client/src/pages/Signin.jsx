@@ -6,6 +6,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../features/user/userSlice";
+import { OAuth } from "../componentes/OAuth";
 
 const Signin = () => {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ const Signin = () => {
         >
           {loading ? "loading" : "Sign in"}
         </button>
+        <OAuth/>
       </form>
       <div className="flex gap-2 mt-5">
         <p>Don't Have an account?</p>
