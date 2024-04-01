@@ -24,7 +24,6 @@ export const OAuth = () => {
       });
 
       const data = await response.json();
-      console.log("data is",data)
       dispatch(signInSuccess(data));
     } catch (error) {
       console.log("could not login with google", error);
