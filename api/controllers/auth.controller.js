@@ -73,8 +73,6 @@ export const googleLoginHandler = async (req, res, next) => {
         message: "user found",
         user,
       });
-
-
     } else {
       console.log("ok in else");
       const generatedPassword =
@@ -97,7 +95,7 @@ export const googleLoginHandler = async (req, res, next) => {
         .json({
           success: true,
           message: "user found",
-          newUser,
+          user:newUser,
         });
 
     }
