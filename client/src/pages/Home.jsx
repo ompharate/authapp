@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";  
 const Home = () => {
   const { email,_id } = useSelector((state) => state.user.currentUser);
   return (  
